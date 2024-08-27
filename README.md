@@ -51,3 +51,18 @@ This web application displays lists of board games and their reviews. While anyo
   - username: bugs    |     password: bunny (user role)
   - username: daffy   |     password: duck  (manager role)
 5. You can also sign-up as a new user and customize your role to play with the application! 😊
+
+1 Master and 2 Worker Nodes - t2.med
+folow steps from k8s-setup
+master: kubectl get nodes (1-master, 2-worker)
+
+sonarqube and nexus - t2.med
+sudo apt update
+install docker
+sudo chmod 600 /var/run/docker.sock
+
+sonarqube:
+
+
+
+
