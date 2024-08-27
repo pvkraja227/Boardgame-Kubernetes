@@ -106,6 +106,9 @@ New item/create: BoardGame/Pipeline
 
 creating pipeline
 
+Master ec2:
+create svc, role, bind, ns and apply
+
 
 
 
