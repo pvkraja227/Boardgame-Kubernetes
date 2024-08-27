@@ -106,8 +106,15 @@ New item/create: BoardGame/Pipeline
 
 creating pipeline
 
-Master ec2:
-create svc, role, bind, ns and apply
+Master:
+create svc, role, bind, secret, ns (webapps) and apply
+kubectl describe secret mysecretname -n webapps (copy token) and later put it in credentials
+
+for kubernetes server end point
+cd ~/.kube
+cat config
+copy  https://172.31.45.20:6443
+
 
 
 
