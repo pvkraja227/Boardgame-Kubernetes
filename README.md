@@ -77,6 +77,37 @@ install jdk17
 install jenkins
 install docker
 chrome: publicIP:8080
+install Trivy
+
+Jenkins dashboard:
+
+manage jenkins/plugins/available plugins
+
+Eclipse Temurin installer (jdk)
+Config File Provider (maven)
+Pipeline Maven Integration (maven)
+Maven Integration
+SonarQube Scanner
+docker
+docker pipeline
+kubernetes
+Kubernetes Client API
+kubernetes cli
+Kubernetes Credentials
+
+manage jenkins/Tools
+
+jdk
+sonarqube
+maven
+docker
+
+New item/create: BoardGame/Pipeline
+
+creating pipeline
+
+
+
 
 
 
