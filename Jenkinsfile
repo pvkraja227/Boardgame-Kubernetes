@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage('Git Checkout') {
             steps {
-               git branch: 'main', credentialsId: 'git-cred', url: 'https://github.com/pvkraja227/Boardgame-Kubernetes.git'
+               git branch: 'main', url: 'https://github.com/pvkraja227/Boardgame-Kubernetes.git'
             }
         }
         
@@ -70,7 +70,7 @@ pipeline {
             steps {
                script {
                    withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
-                            sh "docker build -t adijaiswal/boardshack:latest ."
+                            sh "docker build -t rajapvk23/boardgame:latest ."
                     }
                }
             }
@@ -78,7 +78,7 @@ pipeline {
         
         stage('Docker Image Scan') {
             steps {
-                sh "trivy image --format table -o trivy-image-report.html adijaiswal/boardshack:latest "
+                sh "trivy image --format table -o trivy-image-report.html rajapvk23/boardgame:latest"
             }
         }
         
@@ -86,14 +86,13 @@ pipeline {
             steps {
                script {
                    withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
-                            sh "docker push adijaiswal/boardshack:latest"
-                    }
+                            sh "docker push rajapvk23/boardgame:latest"
                }
             }
         }
         stage('Deploy To Kubernetes') {
             steps {
-               withKubeConfig(caCertificate: '', clusterName: 'kubernetes', contextName: '', credentialsId: 'k8-cred', namespace: 'webapps', restrictKubeConfigAccess: false, serverUrl: 'https://172.31.8.146:6443') {
+               withKubeConfig(caCertificate: '', clusterName: 'kubernetes', contextName: '', credentialsId: 'k8-cred', namespace: 'webapps', restrictKubeConfigAccess: false, serverUrl: 'https://172.31.45.20:6443') {
                         sh "kubectl apply -f deployment-service.yaml"
                 }
             }
@@ -101,7 +100,7 @@ pipeline {
         
         stage('Verify the Deployment') {
             steps {
-               withKubeConfig(caCertificate: '', clusterName: 'kubernetes', contextName: '', credentialsId: 'k8-cred', namespace: 'webapps', restrictKubeConfigAccess: false, serverUrl: 'https://172.31.8.146:6443') {
+               withKubeConfig(caCertificate: '', clusterName: 'kubernetes', contextName: '', credentialsId: 'k8-cred', namespace: 'webapps', restrictKubeConfigAccess: false, serverUrl: 'https://172.31.45.20:6443') {
                         sh "kubectl get pods -n webapps"
                         sh "kubectl get svc -n webapps"
                 }
@@ -135,7 +134,7 @@ pipeline {
             emailext (
                 subject: "${jobName} - Build ${buildNumber} - ${pipelineStatus.toUpperCase()}",
                 body: body,
-                to: 'jaiswaladi246@gmail.com',
+                to: 'pvk.raja@gmail.com',
                 from: 'jenkins@example.com',
                 replyTo: 'jenkins@example.com',
                 mimeType: 'text/html',
