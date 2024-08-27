@@ -59,9 +59,25 @@ master: kubectl get nodes (1-master, 2-worker)
 sonarqube and nexus - t2.med
 sudo apt update
 install docker
-sudo chmod 600 /var/run/docker.sock
+sudo chmod 666 /var/run/docker.sock
 
 sonarqube:
+docker run -d -p 9000:9000 sonarqube:lts-community
+chrome: publicIP:9000 (admin/admin, later get token)
+
+nexus:
+docker run -d -p 8081:8081 sonatype/nexus3:latest
+chrome: publicIP:8081 (admin/get pwd from ..)
+docker exec -it containerID /bin/bash
+cat sonatype-work/nexus3/admin-password (copy password)
+
+jenkins - t2.large
+sudo apt update
+install jdk17
+install jenkins
+install docker
+chrome: publicIP:8080
+
 
 
 
