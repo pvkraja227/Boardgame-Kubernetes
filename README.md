@@ -78,6 +78,7 @@ install jenkins
 install docker
 chrome: publicIP:8080
 install Trivy
+install kubectl
 
 Jenkins dashboard:
 
@@ -102,19 +103,47 @@ sonarqube
 maven
 docker
 
+credentials: 3
+github - if it is private
+k8s (below)
+docker
+sonarqube
+
 New item/create: BoardGame/Pipeline
 
 creating pipeline
 
-Master:
+((Master:
 create svc, role, bind, secret, ns (webapps) and apply
-kubectl describe secret mysecretname -n webapps (copy token) and later put it in credentials
+kubectl describe secret mysecretname -n webapps (copy token) and later put it in credentials))
 
 for kubernetes server end point
 cd ~/.kube
 cat config
 copy  https://172.31.45.20:6443
 
+Notification Email:
+
+https://myaccount.google.com/apppasswords (goto the link/type jenkins/copy password)
+manage jenkins/system/
+
+Email notification (open port 465 for smtp gmail in ec2 security group)
+SMTP server: smtp.gmail.com
+advanced/Use SMTP Authentication: provide gmail pvk.raja@gmail.com
+password: paste password which was created)
+check use SSL
+smtp port: 465
+Test e-mail recipient: pvk.raja@gmail.com
+
+Extended E-mail Notification
+SMTP server: smtp.gmail.com
+smtp port: 465
+advanced/create credentials/username with password
+user: pvk.raja@gmail.com
+password: pwd which we created
+mail-cred/add
+check use SSL
+save
 
 
 
