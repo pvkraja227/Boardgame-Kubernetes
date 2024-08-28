@@ -77,6 +77,7 @@ sudo apt update
 install jdk17
 install jenkins
 install docker
+sudo chmod 666 /var/run/docker.sock
 chrome: publicIP:8080
 install Trivy
 install kubectl
