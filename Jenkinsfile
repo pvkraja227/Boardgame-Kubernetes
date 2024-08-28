@@ -5,15 +5,15 @@ pipeline {
         jdk 'jdk17'
         maven 'maven3'
     }
-
+    
     environment {
         SCANNER_HOME= tool 'sonar-scanner'
     }
-
+    
     stages {
         stage('Git Checkout') {
             steps {
-               git branch: 'main', url: 'https://github.com/pvkraja227/Boardgame-Kubernetes.git'
+                git branch: 'main', url: 'https://github.com/pvkraja227/Boardgame-Kubernetes.git'
             }
         }
         
@@ -31,14 +31,14 @@ pipeline {
         
         stage('File System Scan') {
             steps {
-                sh "trivy fs --format table -o trivy-fs-report.html ."
+                sh "trivy fs --format table -o fs.html ."
             }
         }
         
-        stage('SonarQube Analsyis') {
+        stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('sonar') {
-                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=BoardGame -Dsonar.projectKey=BoardGame \
+                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Boardgame -Dsonar.projectKey=Boardgame \
                             -Dsonar.java.binaries=. '''
                 }
             }
@@ -58,9 +58,9 @@ pipeline {
             }
         }
         
-        stage('Publish To Nexus') {
+        stage('Publish to Nexus') {
             steps {
-               withMaven(globalMavenSettingsConfig: 'global-settings', jdk: 'jdk17', maven: 'maven3', mavenSettingsConfig: '', traceability: true) {
+                withMaven(globalMavenSettingsConfig: 'global-settings', jdk: 'jdk17', maven: 'maven3', mavenSettingsConfig: '', traceability: true) {
                     sh "mvn deploy"
                 }
             }
@@ -70,7 +70,7 @@ pipeline {
             steps {
                script {
                    withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
-                            sh "docker build -t rajapvk23/boardgame:latest ."
+                        sh "docker build -t rajapvk23/boardgame:latest ."
                     }
                }
             }
@@ -78,7 +78,7 @@ pipeline {
         
         stage('Docker Image Scan') {
             steps {
-                sh "trivy image --format table -o trivy-image-report.html rajapvk23/boardgame:latest"
+                sh "trivy image --format table -o image.html rajapvk23/boardgame:latest"
             }
         }
         
@@ -86,13 +86,15 @@ pipeline {
             steps {
                script {
                    withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
-                            sh "docker push rajapvk23/boardgame:latest"
-               }
+                        sh "docker push rajapvk23/boardgame:latest"
+                    }
+                }
             }
         }
+        
         stage('Deploy To Kubernetes') {
             steps {
-               withKubeConfig(caCertificate: '', clusterName: 'kubernetes', contextName: '', credentialsId: 'k8-cred', namespace: 'webapps', restrictKubeConfigAccess: false, serverUrl: 'https://172.31.45.20:6443') {
+               withKubeConfig(caCertificate: '', clusterName: 'kubernetes', contextName: '', credentialsId: 'k8-cred', namespace: 'webapps', restrictKubeConfigAccess: false, serverUrl: 'https://172.31.44.218:6443') {
                         sh "kubectl apply -f deployment-service.yaml"
                 }
             }
@@ -100,7 +102,7 @@ pipeline {
         
         stage('Verify the Deployment') {
             steps {
-               withKubeConfig(caCertificate: '', clusterName: 'kubernetes', contextName: '', credentialsId: 'k8-cred', namespace: 'webapps', restrictKubeConfigAccess: false, serverUrl: 'https://172.31.45.20:6443') {
+               withKubeConfig(caCertificate: '', clusterName: 'kubernetes', contextName: '', credentialsId: 'k8-cred', namespace: 'webapps', restrictKubeConfigAccess: false, serverUrl: 'https://172.31.44.218:6443') {
                         sh "kubectl get pods -n webapps"
                         sh "kubectl get svc -n webapps"
                 }
