@@ -173,7 +173,7 @@ save
 
 buildnow
 
-
+dashboard/app/build number/workspaces//var/lib/jenkins/workspace/Boardgame on built-in/fs.html and image.html
 
 
 
