@@ -96,6 +96,7 @@ kubernetes
 Kubernetes Client API
 kubernetes cli
 Kubernetes Credentials
+pipeline stage view
 
 manage jenkins/Tools
 
