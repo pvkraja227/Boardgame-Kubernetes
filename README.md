@@ -127,6 +127,12 @@ name: jenkins
 URL: jenkins url/sonarqube-webhook/
 create
 
+for Publish to Nexus:
+change url's in pom.xml
+manage jenkins/managed files/add/global maven settings/ID: global-settings/next
+change servers info
+
+
 ((Master:
 create svc, role, bind, secret, ns (webapps) and apply
 kubectl describe secret mysecretname -n webapps (copy token) and later put it in credentials))
