@@ -54,6 +54,7 @@ This web application displays lists of board games and their reviews. While anyo
 
 1 Master and 2 Worker Nodes - t2.med
 folow steps from k8s-setup
+sudo su (from root only)
 master: kubectl get nodes (1-master, 2-worker)
 
 sonarqube and nexus - t2.med
