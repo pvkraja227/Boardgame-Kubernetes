@@ -171,6 +171,7 @@ mail-cred/add
 check use SSL
 save
 
+buildnow
 
 
 
