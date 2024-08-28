@@ -111,9 +111,21 @@ k8s (below)
 docker
 sonarqube
 
+manage jenkins/system
+
+Sonarqube
+
+
 New item/create: BoardGame/Pipeline
 
 creating pipeline
+
+For Quality Gate:
+
+goto sonarqube dashboard/administration/configuration/webhooks/create
+name: jenkins
+URL: jenkins url/sonarqube-webhook/
+create
 
 ((Master:
 create svc, role, bind, secret, ns (webapps) and apply
