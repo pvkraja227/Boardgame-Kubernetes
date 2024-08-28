@@ -99,7 +99,7 @@ kubernetes cli
 Kubernetes Credentials
 pipeline stage view
 
-manage jenkins/Tools
+manage jenkins/Tools - 4
 
 jdk
 sonarqube
@@ -112,7 +112,7 @@ k8s (below)
 docker
 sonarqube
 
-manage jenkins/system
+manage jenkins/system - 1
 
 Sonarqube
 
@@ -142,6 +142,11 @@ for kubernetes server end point
 cd ~/.kube
 cat config
 copy  https://172.31.45.20:6443
+
+kubectl get nodes - 1 master, 2 worker
+kubectl get pods -n webapps - 2
+kubectl get svc -n webapps - 80:31672/TCP
+chrome: masterIP:31672
 
 Notification Email:
 
