@@ -25,3 +25,5 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
 11. Deploy Ingress Controller (NGINX) [On MasterNode]
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.49.0/deploy/static/provider/baremetal/deploy.yaml
+
+kubectl get nodes (3: control plane - 1, worker nodes - 2)
