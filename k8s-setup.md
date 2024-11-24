@@ -16,11 +16,12 @@ sudo apt update
 sudo apt install -y kubeadm=1.28.1-1.1 kubelet=1.28.1-1.1 kubectl=1.28.1-1.1
 7. Initialize Kubernetes Master Node [On MasterNode]
 sudo kubeadm init --pod-network-cidr=10.244.0.0/16
-8. Configure Kubernetes Cluster [On MasterNode]
+(kubeadm join ..., copy whole and paste in worker nodes)
+9. Configure Kubernetes Cluster [On MasterNode]
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
-9. Deploy Networking Solution (Calico) [On MasterNode]
+10. Deploy Networking Solution (Calico) [On MasterNode]
 kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
-10. Deploy Ingress Controller (NGINX) [On MasterNode]
+11. Deploy Ingress Controller (NGINX) [On MasterNode]
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.49.0/deploy/static/provider/baremetal/deploy.yaml
